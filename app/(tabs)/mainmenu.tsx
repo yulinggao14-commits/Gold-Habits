@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Image, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
 
 export default function MainMenuScreen() {
     const [koiName, setKoiName] = useState('');
@@ -17,13 +17,23 @@ export default function MainMenuScreen() {
             style={styles.container}
             behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         >
+            <Image
+                source={require('../../assets/images/carp_default.png')}
+                style={styles.logo}
+                resizeMode="contain"
+                pointerEvents="none"
+            />
+
             <Text style={styles.title}>Gold Habits</Text>
+
             <TextInput
-                style={styles.input}
+                style={styles.inputBox}
                 placeholder="Enter your Koi's name"
+                placeholderTextColor="#798497"
                 value={koiName}
                 onChangeText={setKoiName}
             />
+
             <TouchableOpacity
                 style={[styles.button, !canContinue && styles.buttonDisabled]}
                 onPress={handleContinue}
@@ -31,6 +41,7 @@ export default function MainMenuScreen() {
             >
                 <Text style={styles.buttonText}>Confirm</Text>
             </TouchableOpacity>
+
         </KeyboardAvoidingView>
     );
 };
@@ -41,35 +52,50 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#275DAD',
+    paddingTop: 100,
+    paddingBottom: 120,
+  },
+  logo: {
+    width: 700,
+    height: 700,
+    marginVertical: -325, 
+    position: 'absolute',
+    
   },
   title: {
-    fontSize: 50,
+    fontSize: 55,
     color: '#FFC145',
     fontWeight: 'bold',
     fontFamily: 'Georgia',
+    marginBottom: 190, 
   },
-  input: {
-    fontSize: 20,
-    color: 'white',
-    fontWeight: 'bold',
+  inputBox: {
+    width: 250,
+    height: 60,
+    backgroundColor: 'white',
+    textAlign: 'center',
+    borderRadius: 15,
+    fontSize: 18,
     fontFamily: 'Georgia',
+    fontWeight: 'bold',
+    marginTop: 125, 
+    marginBottom: 30, 
   },
   button: {
-    width: 100,
-    height: 50,
-    backgroundColor: 'blue',
+    width: 250,
+    height: 60,
+    backgroundColor: '#FFC145',
     alignItems: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
+    justifyContent: 'center',
+    borderRadius: 15,
   },
   buttonText: {
     fontSize: 20,
-    color: 'white',
+    color: 'black',
     fontWeight: 'bold',
+    fontFamily: 'Georgia',
   },
   buttonDisabled: {
     opacity: 0.5,
-    color: 'white',
-    fontFamily: 'Georgia',
   },
 });
