@@ -80,7 +80,6 @@ export default function TabLayout() {
               size={28}
             />
           ),
-          headerShown: false
         }} />
     </Tabs>
   );
