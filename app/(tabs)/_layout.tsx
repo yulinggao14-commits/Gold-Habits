@@ -49,26 +49,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="mainmenuName"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => (
-            <SymbolView
-              name={{
-                ios: 'chevron.left.forwardslash.chevron.right',
-                android: 'code',
-                web: 'code',
-              }}
-              tintColor={color}
-              size={28}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="mainmenu"
-        options={{
-          title: 'Main Menu',
+          title: 'Main Menu Name',
+          headerShown: false,
+          tabBarStyle: { display: 'none' }, // Hide the tab bar for this screen
           tabBarIcon: ({ color }) => (
             <SymbolView
               name={{
@@ -81,6 +66,16 @@ export default function TabLayout() {
             />
           ),
         }} />
+
+        <Tabs.Screen
+        name="mainmenuCheckIn"
+        options={{
+          headerShown: false,
+          tabBarStyle: { display: 'none' },
+          href: null,
+        }} />
+
     </Tabs>
+    
   );
 }

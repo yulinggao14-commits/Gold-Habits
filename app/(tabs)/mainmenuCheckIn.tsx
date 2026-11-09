@@ -1,15 +1,11 @@
 import { useState } from 'react';
-import { View, Image, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
+import { Image, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
 
-export default function MainMenuScreen() {
+export default function MainMenuCheckInScreen() {
     const [koiName, setKoiName] = useState('');
     const canContinue = koiName.trim().length > 0;
 
     const handleContinue = () => {
-        if (canContinue) {
-            Keyboard.dismiss();
-            console.log('Koi Name:', koiName.trim());
-        };
     }
 
     return (
@@ -17,27 +13,14 @@ export default function MainMenuScreen() {
             style={styles.container}
             behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         >
-            <Image
-                source={require('../../assets/images/carp_default.png')}
-                style={styles.logo}
-                resizeMode="contain"
-                pointerEvents="none"
-            />
+            <Text style={styles.title}>{'Check-in Bonus!'}</Text>
+            <Text style={styles.subtitle}>{'Day #1'}</Text>
 
-            <Text style={styles.title}>Gold Habits</Text>
-
-            <TextInput
-                style={styles.inputBox}
-                placeholder="Enter your Koi's name"
-                placeholderTextColor="#798497"
-                value={koiName}
-                onChangeText={setKoiName}
-            />
 
             <TouchableOpacity
-                style={[styles.button, !canContinue && styles.buttonDisabled]}
+                style={styles.button}
                 onPress={handleContinue}
-                disabled={!canContinue}
+                activeOpacity={0.7}
             >
                 <Text style={styles.buttonText}>Confirm</Text>
             </TouchableOpacity>
@@ -52,10 +35,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#275DAD',
-    paddingTop: 100,
+    paddingTop: 75,
     paddingBottom: 120,
   },
-  logo: {
+  chest: {
     width: 700,
     height: 700,
     marginVertical: -325, 
@@ -67,23 +50,22 @@ const styles = StyleSheet.create({
     color: '#FFC145',
     fontWeight: 'bold',
     fontFamily: 'Georgia',
-    marginBottom: 190, 
-  },
-  inputBox: {
-    width: 250,
-    height: 60,
-    backgroundColor: 'white',
+    marginBottom: 10, 
     textAlign: 'center',
-    borderRadius: 15,
-    fontSize: 18,
-    fontFamily: 'Georgia',
+  },
+  subtitle: {
+    fontSize: 45,
+    color: '#FFC145',
     fontWeight: 'bold',
-    marginTop: 125, 
-    marginBottom: 30, 
+    fontFamily: 'Georgia',
+    textAlign: 'center',
+    marginBottom: 350, 
   },
   button: {
     width: 250,
     height: 60,
+    position: 'absolute',
+    bottom: 155,
     backgroundColor: '#FFC145',
     alignItems: 'center',
     justifyContent: 'center',
