@@ -40,16 +40,19 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#275DAD',
   },
   title: {
-    fontSize: 20,
-    color: 'white',
+    fontSize: 50,
+    color: '#FFC145',
     fontWeight: 'bold',
+    fontFamily: 'Georgia',
   },
   input: {
     fontSize: 20,
     color: 'white',
     fontWeight: 'bold',
+    fontFamily: 'Georgia',
   },
   button: {
     width: 100,
@@ -66,5 +69,7 @@ const styles = StyleSheet.create({
   },
   buttonDisabled: {
     opacity: 0.5,
+    color: 'white',
+    fontFamily: 'Georgia',
   },
 });
