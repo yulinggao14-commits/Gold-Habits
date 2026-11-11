@@ -1,10 +1,10 @@
-import { SymbolView } from 'expo-symbols';
 import { Link, Tabs } from 'expo-router';
-import { Platform, Pressable } from 'react-native';
+import { SymbolView } from 'expo-symbols';
+import { Pressable } from 'react-native';
 
-import Colors from '@/constants/Colors';
-import { useColorScheme } from '@/components/useColorScheme';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+import { useColorScheme } from '@/components/useColorScheme';
+import Colors from '@/constants/Colors';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -63,6 +63,42 @@ export default function TabLayout() {
               size={28}
             />
           ),
+        }}
+      />
+      <Tabs.Screen // NOTE: i made my changes based on a version of main with the mainmenu screen,
+        name="mainmenu" // but the mainmenu & CustomSplashScreen files weren't transferred 
+        options={{ // when i switched from a main branch to the feature/homepage branch
+          title: 'Main Menu', // hopefully you can just insert the two files back in and it'll work fine
+          tabBarIcon: ({ color }) => (
+            <SymbolView
+              name={{
+                ios: 'chevron.left.forwardslash.chevron.right',
+                android: 'code',
+                web: 'code',
+              }}
+              tintColor={color}
+              size={28}
+            />
+          ),
+          headerShown: false
+        }}
+        />
+        <Tabs.Screen
+        name="homepage"
+        options={{
+          title: 'Home Page',
+          tabBarIcon: ({ color }) => (
+            <SymbolView
+              name={{
+                ios: 'chevron.left.forwardslash.chevron.right',
+                android: 'code',
+                web: 'code',
+              }}
+              tintColor={color}
+              size={28}
+            />
+          ),
+          headerShown: false
         }}
       />
     </Tabs>
