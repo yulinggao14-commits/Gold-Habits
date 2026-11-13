@@ -1,11 +1,13 @@
+import { router } from 'expo-router';
 import { useState } from 'react';
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
-// import EditScreenInfo from '@/components/EditScreenInfo';
-import Transition from '@/components/tempTransition';
 import { Text, View } from '@/components/Themed';
 
 const { width, height } = Dimensions.get('window');
+const handleContinue = (tabName: string) => {
+  router.push({ pathname: tabName }); // unsure how to make vscode ignore
+}
 
 const DisplayStats = () => { 
   const [currentLevel, setLevel] = useState(3);
@@ -27,41 +29,66 @@ const DisplayStats = () => {
   <TouchableOpacity style={styles.tempButton} onPress={upGold}>
     <Text>increment gold</Text>
   </TouchableOpacity>
-  // put each TouchableOpacity in the "flexDirection: 'column'" View of the corresponding Text
+  // put either TouchableOpacity somewhere in the View
   */
 
   return (
-    <View style={styles.values}>
+    <View style={styles.header}>
 
-      <View style={{ flexDirection: 'column'}}>
         <View style={styles.valueContainer}>
           <Text>Level: {currentLevel}</Text>
         </View>
-      </View>
 
-      <View style={{ flexDirection: 'column'}}>
         <View style={styles.valueContainer}>
           <Text>Gold: {currentGold}</Text>
         </View>
-      </View>
 
     </View>
   );
 };
 
-/* kept the template stuff for no particular reason, you can probably just grab it from branch history
-<Text style={styles.title}>Home Page</Text>
-<View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-<EditScreenInfo path="app/(tabs)/homepage.tsx" />
-*/
-
-export default function HomepageScreen() {
+export default function HomePage() {
   return ( 
+    // the icon.pngs are the size of the phone, so the icons have to be loaded like this to be visible
     <View style={styles.container}>
+      <Image
+        source={require('../../assets/images/dressup_icon.png')}
+        style={styles.icon}
+        resizeMode="contain"
+      />
+      <Image
+        source={require('../../assets/images/reward_icon.png')}
+        style={styles.icon}
+        resizeMode="contain"
+      />
+      <Image
+        source={require('../../assets/images/background_icon.png')}
+        style={styles.icon}
+        resizeMode="contain"
+      />
+      <Image
+        source={require('../../assets/images/shop_icon.png')}
+        style={styles.icon}
+        resizeMode="contain"
+      />
+      <Image
+        source={require('../../assets/images/carp_default.png')}
+        style={{width: width, height: height }}
+        resizeMode="contain"
+      />
 
-      <DisplayStats /> 
-      <Transition />
-      
+      <DisplayStats />
+
+      <View style={styles.buttonBar}>
+        <TouchableOpacity style={styles.button} activeOpacity={0.4} 
+          onPress={() => handleContinue('/(tabs)/dressup')}/>
+        <TouchableOpacity style={styles.button} activeOpacity={0.4} 
+          onPress={() => handleContinue('/(tabs)/reward')}/>
+        <TouchableOpacity style={styles.button} activeOpacity={0.4} 
+          onPress={() => handleContinue('/(tabs)/background')}/>
+        <TouchableOpacity style={styles.button} activeOpacity={0.4} 
+          onPress={() => handleContinue('/(tabs)/catalogue')}/>
+      </View>
     </View>
   );
 }
@@ -71,6 +98,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#275DAD',
   },
   valueContainer: {
     alignItems: 'center',
@@ -79,42 +107,53 @@ const styles = StyleSheet.create({
     backgroundColor: '#2f95dc',
     borderRadius: 5,
   },
-  values: {
+  header: {
     flexDirection: 'row', 
     alignItems: 'center', 
     width: width,
     position: 'absolute',
     top: 70,
     justifyContent: 'space-between',
-    borderWidth: 5, // border's there so i can see where the views start & end
+    backgroundColor: 'transparent',
+    // border for visibility when modifying. yes its ugly but it wont be there for the final product, probably
+    borderWidth: 5, 
+    borderColor: "red",
   },
+  icon: {
+    width: width,
+    height: height,
+    position: "absolute",
+    top: height / 25,
+  },
+  button: {
+    width: 50,
+    height: 50,
+    margin: 5, 
+    // visibility
+    borderWidth: 3, 
+    borderRadius: 25, 
+    borderColor: "red", 
+  },
+  buttonBar: {
+    flexDirection: 'column',
+    width: 60,
+    height: 280,
+    position: 'absolute',
+    right: 18,
+    top: 104,
+    backgroundColor: 'transparent',
+
+  }
   /*
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-  tempButton: {
-    alignItems: 'center',
-    backgroundColor: '#DDDDDD',
-    padding: 5,
+  reward: {
+    width: 50,
+    height: 50,
+    position: 'absolute',
+    top: 15,
+    left: 15,
+    bottom: 15,
+    borderWidth: 5,
+    borderRadius: 25,
   },
   */
 });
-/* talking to myself
-issue: DisplayStats currently shows the values even when on Screen 2 from Transition
-option a: turn DisplayStats into a component and have it activate in tempTransition
-          so that the stats are attatched to the Screen 1 view
-          (would probably create new issues with formatting the Screen 1 view)
-option b: reformat the DisplayStats view so that it's a proper header that looks
-          natural in the other screens attatched to it
-          (dress-up, shop, reward should be related enough to gold for it to stay on-screen)
-          (might be more of a ui thing)
-option c: rewrite a new Transition component that actually allows movement between different tabs,
-          rather than just having multiple screens' worth of info offscreen
-          (i currently don't know how to do that)
-*/
