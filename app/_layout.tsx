@@ -3,6 +3,8 @@ import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { TasksProvider } from '@/context/TasksContext';
 
 import { useColorScheme } from '@/components/useColorScheme';
 
@@ -46,11 +48,34 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
-    </ThemeProvider>
+    <SafeAreaProvider>
+      <TasksProvider>
+        <ThemeProvider
+          value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+        >
+          <Stack>
+            <Stack.Screen
+              name="(tabs)"
+              options={{ headerShown: false }}
+            />
+
+            <Stack.Screen
+              name="tasks-manager"
+              options={{ headerShown: false }}
+            />
+
+            <Stack.Screen
+              name="task-editor"
+              options={{ headerShown: false }}
+            />
+
+            <Stack.Screen
+              name="modal"
+              options={{ presentation: 'modal' }}
+            />
+          </Stack>
+        </ThemeProvider>
+      </TasksProvider>
+    </SafeAreaProvider>
   );
 }
