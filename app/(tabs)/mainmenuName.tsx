@@ -1,8 +1,9 @@
-import { router } from 'expo-router';
+import { useRouter } from "expo-router";
 import { useState } from 'react';
 import { Image, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
 
 export default function MainMenuScreen() {
+    const router = useRouter();
     const [koiName, setKoiName] = useState('');
     const canContinue = koiName.trim().length > 0;
 
@@ -47,6 +48,7 @@ export default function MainMenuScreen() {
             </TouchableOpacity>
 
         </KeyboardAvoidingView>
+
     );
 };
 
