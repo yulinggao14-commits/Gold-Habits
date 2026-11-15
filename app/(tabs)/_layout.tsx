@@ -48,6 +48,7 @@ export default function TabLayout() {
           ),
         }}
       />
+      
       <Tabs.Screen
         name="mainmenuName"
         options={{
@@ -65,16 +66,36 @@ export default function TabLayout() {
               size={28}
             />
           ),
-        }} />
+        }} 
+      />
 
-        <Tabs.Screen
+      <Tabs.Screen
+        name="homepage"
+        options={{
+          title: 'Home Page',
+          tabBarIcon: ({ color }) => (
+            <SymbolView
+              name={{
+                ios: 'chevron.left.forwardslash.chevron.right',
+                android: 'code',
+                web: 'code',
+              }}
+              tintColor={color}
+              size={28}
+            />
+          ),
+          headerShown: false,
+          tabBarStyle: { display: 'none' },
+        }} 
+      />
+
+      <Tabs.Screen
         name="mainmenuCheckIn"
         options={{
           headerShown: false,
           tabBarStyle: { display: 'none' },
           href: null,
         }} />
-
     </Tabs>
     
   );
