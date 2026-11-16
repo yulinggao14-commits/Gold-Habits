@@ -54,7 +54,7 @@ function TaskForm({ task }: { task?: Task }) {
       if (router.canGoBack()) {
         router.back();
       } else {
-        router.replace('/tasks-manager');
+        router.replace('/task-manager');
       }
     } catch (problem) {
       setError(
@@ -89,7 +89,10 @@ function TaskForm({ task }: { task?: Task }) {
 
       <TextInput
         value={title}
-        onChangeText={setTitle}
+        onChangeText={(text) => {
+        setTitle(text);
+        setError('');
+        }}
         placeholder="Name of the task"
         placeholderTextColor="#677980"
         accessibilityLabel="Task name"
@@ -104,7 +107,10 @@ function TaskForm({ task }: { task?: Task }) {
 
           <TextInput
             value={dueDate}
-            onChangeText={setDueDate}
+            onChangeText={(text) => {
+            setDueDate(text);
+            setError('');
+            }}
             placeholder="YYYY-MM-DD"
             placeholderTextColor="#677980"
             accessibilityLabel="Due date, YYYY-MM-DD"
@@ -120,7 +126,10 @@ function TaskForm({ task }: { task?: Task }) {
 
           <TextInput
             value={dueTime}
-            onChangeText={setDueTime}
+            onChangeText={(text) => {
+            setDueTime(text);
+            setError('');
+            }}
             placeholder="HH:mm"
             placeholderTextColor="#677980"
             accessibilityLabel="Due time, 24-hour HH:mm"
@@ -131,10 +140,27 @@ function TaskForm({ task }: { task?: Task }) {
           />
         </View>
       </View>
-
+      
       <Text style={styles.hint}>
-        Date and time are optional. Example: 2026-11-20 at 14:30.
+      Date and time are optional. Example: 2026-11-20 at 14:30.
       </Text>
+
+      {(dueDate !== '' || dueTime !== '') && (
+      <Pressable
+      onPress={() => {
+      setDueDate('');
+      setDueTime('');
+      setError('');
+    }}
+      accessibilityRole="button"
+      accessibilityLabel="Clear due date and time"
+      style={styles.clearButton}
+      >
+      <Text style={styles.clearButtonText}>
+      Clear date and time
+      </Text>
+      </Pressable>
+)}
 
       {error !== '' && (
         <Text accessibilityRole="alert" style={styles.error}>
@@ -217,7 +243,19 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     marginTop: 12,
   },
+  clearButton: {
+  alignSelf: 'flex-start',
+  marginTop: 12,
+  paddingVertical: 8,
+  paddingRight: 12,
+},
+clearButtonText: {
+  color: taskColors.text,
+  fontSize: 14,
+  textDecorationLine: 'underline',
+},
   error: {
+    
     color: '#651A12',
     backgroundColor: '#FFF0EA',
     padding: 12,
