@@ -1,11 +1,13 @@
+import { router } from 'expo-router';
 import { useState } from 'react';
-import { Image, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
+import { KeyboardAvoidingView, Platform, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 export default function MainMenuCheckInScreen() {
     const [koiName, setKoiName] = useState('');
     const canContinue = koiName.trim().length > 0;
 
     const handleContinue = () => {
+      router.push({ pathname: '/(tabs)/homepage' });
     }
 
     return (
