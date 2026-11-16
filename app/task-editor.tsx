@@ -40,6 +40,18 @@ function TaskForm({ task }: { task?: Task }) {
   const [dueTime, setDueTime] = useState(task?.dueTime ?? '');
   const [error, setError] = useState('');
 
+  function chooseDueDate(daysAhead: number) {
+  const date = new Date();
+  date.setDate(date.getDate() + daysAhead);
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  setDueDate(`${year}-${month}-${day}`);
+  setError('');
+}
+
   function confirmTask() {
     try {
       saveTask(
@@ -144,6 +156,32 @@ function TaskForm({ task }: { task?: Task }) {
       <Text style={styles.hint}>
       Date and time are optional. Example: 2026-11-20 at 14:30.
       </Text>
+
+      <View style={styles.quickDateRow}>
+  <Pressable
+    onPress={() => chooseDueDate(0)}
+    style={styles.quickDateButton}
+    accessibilityRole="button"
+  >
+    <Text style={styles.quickDateText}>Today</Text>
+  </Pressable>
+
+  <Pressable
+    onPress={() => chooseDueDate(1)}
+    style={styles.quickDateButton}
+    accessibilityRole="button"
+  >
+    <Text style={styles.quickDateText}>Tomorrow</Text>
+  </Pressable>
+
+  <Pressable
+    onPress={() => chooseDueDate(7)}
+    style={styles.quickDateButton}
+    accessibilityRole="button"
+  >
+    <Text style={styles.quickDateText}>In 7 Days</Text>
+  </Pressable>
+</View>
 
       {(dueDate !== '' || dueTime !== '') && (
       <Pressable
@@ -282,9 +320,26 @@ clearButtonText: {
   pressedButton: {
     opacity: 0.75,
   },
-  missing: {
+    missing: {
     color: taskColors.text,
     fontSize: 16,
     lineHeight: 24,
+  },
+  quickDateRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    marginTop: 12,
+  },
+  quickDateButton: {
+    backgroundColor: taskColors.white,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderRadius: 8,
+  },
+  quickDateText: {
+    color: taskColors.text,
+    fontSize: 14,
+    fontWeight: '600',
   },
 });
