@@ -44,6 +44,9 @@ export default function MainMenuScreen() {
             accessibilityLabel="Koi name"
             accessibilityHint="Enter a name for your koi, up to 20 characters"
             />
+            <Text style={styles.characterCount}>
+            {koiName.length}/20
+            </Text>
 
             <TouchableOpacity
             style={[styles.button, !canContinue && styles.buttonDisabled]}
@@ -66,24 +69,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#275DAD',
-    paddingBottom: 120,
-  },
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+},
   logo: {
-    width: 700,
-    height: 700,
-    marginVertical: -325, 
-    position: 'absolute',
-    
-  },
+    width: 170,
+    height: 170,
+    marginBottom: 20,
+},
   title: {
-    fontSize: 55,
+    fontSize: 42,
     color: '#FFC145',
     fontWeight: 'bold',
     fontFamily: 'Georgia',
-    marginBottom: 175, 
-  },
+    marginBottom: 30,
+    textAlign: 'center',
+},
   inputBox: {
-    width: 325,
+    width: '100%',
+    maxWidth: 325,
     height: 60,
     backgroundColor: 'white',
     textAlign: 'center',
@@ -91,19 +95,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'Georgia',
     fontWeight: 'bold',
-    marginTop: 110, 
-    marginBottom: 25, 
-  },
+    marginBottom: 8,
+},
   button: {
-    width: 325,
+    width: '100%',
+    maxWidth: 325,
     height: 60,
-    position: 'absolute',
-    bottom: 155,
     backgroundColor: '#FFC145',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 15,
-  },
+},
   buttonText: {
     fontSize: 20,
     color: 'black',
@@ -113,4 +115,12 @@ const styles = StyleSheet.create({
   buttonDisabled: {
     opacity: 0.5,
   },
+    characterCount: {
+    width: '100%',
+    maxWidth: 325,
+    textAlign: 'right',
+    color: 'white',
+    fontSize: 14,
+    marginBottom: 20,
+},
 });
