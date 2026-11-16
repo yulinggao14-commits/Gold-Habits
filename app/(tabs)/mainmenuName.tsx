@@ -31,17 +31,27 @@ export default function MainMenuScreen() {
             <Text style={styles.title}>Gold Habits</Text>
 
             <TextInput
-                style={styles.inputBox}
-                placeholder="Enter your Koi's name"
-                placeholderTextColor="#798497"
-                value={koiName}
-                onChangeText={setKoiName}
+            style={styles.inputBox}
+            placeholder="Enter your Koi's name"
+            placeholderTextColor="#798497"
+            value={koiName}
+            onChangeText={setKoiName}
+            maxLength={20}
+            autoCapitalize="words"
+            autoCorrect={false}
+            returnKeyType="done"
+            onSubmitEditing={handleContinue}
+            accessibilityLabel="Koi name"
+            accessibilityHint="Enter a name for your koi, up to 20 characters"
             />
 
             <TouchableOpacity
-                style={[styles.button, !canContinue && styles.buttonDisabled]}
-                onPress={handleContinue}
-                disabled={!canContinue}
+            style={[styles.button, !canContinue && styles.buttonDisabled]}
+            onPress={handleContinue}
+            disabled={!canContinue}
+            accessibilityRole="button"
+            accessibilityLabel="Confirm koi name"
+            accessibilityState={{ disabled: !canContinue }}
             >
                 <Text style={styles.buttonText}>Confirm</Text>
             </TouchableOpacity>
