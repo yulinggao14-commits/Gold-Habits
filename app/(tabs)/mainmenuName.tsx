@@ -1,8 +1,10 @@
 import { useRouter } from "expo-router";
 import { useState } from 'react';
-import { Image, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
+import { Button, Image, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+
 
 export default function MainMenuScreen() {
+
     const router = useRouter();
     const [koiName, setKoiName] = useState('');
     const canContinue = koiName.trim().length > 0;
@@ -30,6 +32,7 @@ export default function MainMenuScreen() {
             />
 
             <Text style={styles.title}>Gold Habits</Text>
+            
 
             <TextInput
                 style={styles.inputBox}
@@ -46,7 +49,12 @@ export default function MainMenuScreen() {
             >
                 <Text style={styles.buttonText}>Confirm</Text>
             </TouchableOpacity>
-
+            <View>
+              <Button
+                title="Task Manager"
+                onPress={() => router.push('taskManagerScreen') }
+              />
+            </View>
         </KeyboardAvoidingView>
 
     );

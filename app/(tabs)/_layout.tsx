@@ -2,6 +2,7 @@ import { Link, Tabs } from 'expo-router';
 import { SymbolView } from 'expo-symbols';
 import { Pressable } from 'react-native';
 
+
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
 import { useColorScheme } from '@/components/useColorScheme';
 import Colors from '@/constants/Colors';
@@ -47,6 +48,9 @@ export default function TabLayout() {
             </Link>
           ),
         }}
+      />
+      <Tabs.Screen name='taskManagerScreen'
+    
       />
       <Tabs.Screen
         name="mainmenuName"

@@ -1,5 +1,6 @@
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 
+
 export default function HomePage() {
   return (
     <TouchableOpacity style={styles.dressup}>
