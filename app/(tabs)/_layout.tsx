@@ -48,8 +48,18 @@ export default function TabLayout() {
             </Link>
           ),
         }}
+      />
+      <Tabs.Screen 
+        name="Shop"
+      />
       <Tabs.Screen
-        name=""
+        name="task-manager"
+      />
+      <Tabs.Screen
+        name="shirts"
+      />
+      <Tabs.Screen
+        name="hats"
       />
       <Tabs.Screen
         name="mainmenuName"

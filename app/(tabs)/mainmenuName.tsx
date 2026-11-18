@@ -49,12 +49,20 @@ export default function MainMenuScreen() {
             >
                 <Text style={styles.buttonText}>Confirm</Text>
             </TouchableOpacity>
+          <View> 
             <View>
               <Button
                 title="Task Manager"
-                onPress={() => router.push('taskManagerScreen') }
+                onPress={() => router.push('/task-manager') }
               />
             </View>
+          </View>
+          <View>
+            <Button 
+              title="Shop"
+              onPress = { () => router.push('/Shop') }
+            />
+          </View>
         </KeyboardAvoidingView>
 
     );

@@ -26,7 +26,6 @@ export default function MainMenuCheckInScreen() {
             >
                 <Text style={styles.buttonText}>Confirm</Text>
             </TouchableOpacity>
-
         </KeyboardAvoidingView>
     );
 };
