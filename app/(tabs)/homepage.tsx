@@ -6,7 +6,7 @@ import { Text, View } from '@/components/Themed';
 
 const { width, height } = Dimensions.get('window');
 const handleContinue = (tabName: string) => {
-  router.push({ pathname: tabName }); // unsure how to make vscode ignore
+  router.push({ pathname: tabName }); // unsure how to make vscode ignore warning
 }
 
 const DisplayStats = () => { 
@@ -36,11 +36,11 @@ const DisplayStats = () => {
     <View style={styles.header}>
 
         <View style={styles.valueContainer}>
-          <Text>Level: {currentLevel}</Text>
+          <Text style={styles.valueText}>Level: {currentLevel}</Text>
         </View>
 
         <View style={styles.valueContainer}>
-          <Text>Gold: {currentGold}</Text>
+          <Text style={styles.valueText}>Gold: {currentGold}</Text>
         </View>
 
     </View>
@@ -88,7 +88,7 @@ export default function HomePage() {
         <TouchableOpacity style={styles.button} activeOpacity={0.4} 
           onPress={() => handleContinue('/(tabs)/background')}/>
         <TouchableOpacity style={styles.button} activeOpacity={0.4} 
-          onPress={() => handleContinue('/(tabs)/catalogue')}/>
+          onPress={() => handleContinue('/(tabs)/Shop')}/>
       </View>
     </View>
   );
@@ -102,24 +102,31 @@ const styles = StyleSheet.create({
     backgroundColor: '#275DAD',
   },
   valueContainer: {
-    alignItems: 'center',
-    width: 70,
-    height: 20,
+    justifyContent: 'center',
+    width: 100,
+    height: 40,
     backgroundColor: '#2f95dc',
-    borderRadius: 5,
+    borderRadius: 10,
+    margin: 5,
+  },
+  valueText: {
+    padding: 5,
+    fontWeight: 'bold',
+    fontSize: 20,
   },
   header: {
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    width: width,
     position: 'absolute',
-    top: 70,
+    top: 0,    
+    flexDirection: 'row', 
+    alignItems: 'flex-end', 
+    width: width,
+    height: height / 10,
     justifyContent: 'space-between',
     backgroundColor: 'transparent',
-    // border for visibility when modifying. yes its ugly but it wont be there for the final product, probably
-    borderWidth: 5, 
-    borderColor: "red",
-  },
+    padding: 10,
+    borderBottomRightRadius: 25,
+    borderBottomLeftRadius: 25,
+    },
   icon: {
     width: width,
     height: height,
@@ -130,7 +137,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     margin: 5, 
-    // visibility
+    // temporary border for visibility
     borderWidth: 3, 
     borderRadius: 25, 
     borderColor: "red", 
@@ -145,16 +152,4 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
 
   }
-  /*
-  reward: {
-    width: 50,
-    height: 50,
-    position: 'absolute',
-    top: 15,
-    left: 15,
-    bottom: 15,
-    borderWidth: 5,
-    borderRadius: 25,
-  },
-  */
 });
