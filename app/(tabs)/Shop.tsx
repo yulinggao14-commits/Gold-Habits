@@ -10,11 +10,11 @@ export default function Shop() {
 
     return (
         //Categories
-        
+
         // the screen crashed when i tried to give the ScrollView a style to hide the white space
         // i (jaden le) would have replaced it but the other person (LightNCrescent) added it
         // and i assume that they need specifically ScrollView in lieu of View for something
-        <ScrollView> 
+        <ScrollView>
             <View style={styles.header}>
 
                 <Image
@@ -22,28 +22,28 @@ export default function Shop() {
                     style={styles.icon}
                     resizeMode="contain"
                 />
-                <TouchableOpacity style={styles.button} activeOpacity={0.4} 
-                    onPress={() => router.push({ pathname: '/(tabs)/homepage' })}/>
+                <TouchableOpacity style={styles.button} activeOpacity={0.4}
+                    onPress={() => router.push({ pathname: '/(tabs)/homepage' })} />
 
                 <View style={styles.valueContainer}>
-                    <Text style={[styles.valueText, {fontSize: 20}]}>Gold: 0</Text>
+                    <Text style={[styles.valueText, { fontSize: 20 }]}>Gold: 0</Text>
                 </View>
 
             </View>
             <View style={styles.shopTab}>
                 <Text style={styles.titleText}> Categories </Text>
-                <View style={styles.buttonColumn}> 
+                <View style={styles.buttonColumn}>
                     <Button title="Hats"
-                        onPress = {() => router.push('/hats')}
+                        onPress={() => router.push('/hats')}
                     />
                     <Button title="Accessories"
-                        onPress = {() => router.push('/faceAcc')}
+                        onPress={() => router.push('/faceAcc')}
                     />
                     <Button title="Shirts"
-                        onPress = {() => router.push('/shirts')}
+                        onPress={() => router.push('/shirts')}
                     />
                     <Button title="Backgrounds"
-                        onPress = {() => router.push('/bgShop')}
+                        onPress={() => router.push('/bgShop')}
                     />
                 </View>
             </View>
@@ -53,8 +53,8 @@ export default function Shop() {
 
 const styles = StyleSheet.create({
     header: {
-        flexDirection: 'row', 
-        alignItems: 'flex-end', 
+        flexDirection: 'row',
+        alignItems: 'flex-end',
         width: width,
         height: height / 10,
         justifyContent: 'space-between',
@@ -66,16 +66,17 @@ const styles = StyleSheet.create({
         width: width,
         height: height,
         position: 'absolute',
-        top: 10,
+        top: 5,
+        left: -2,
     },
     button: {
         width: 50,
         height: 50,
         marginLeft: 10,
         // temporary border for visibility
-        borderWidth: 3, 
-        borderRadius: 25, 
-        borderColor: "red", 
+        borderWidth: 3,
+        borderRadius: 25,
+        borderColor: "red",
     },
     valueContainer: {
         justifyContent: 'center',
@@ -98,8 +99,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     shopTab: {
-        flexDirection: 'column', 
-        alignItems: 'center', 
+        flexDirection: 'column',
+        alignItems: 'center',
         justifyContent: 'center',
         // for some reson changing justifyContent isnt doing anything, no idea why
         width: width,

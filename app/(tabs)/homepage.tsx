@@ -1,18 +1,23 @@
-import { router } from 'expo-router';
+import { Href, router } from 'expo-router';
 import { useState } from 'react';
-import { Dimensions, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { Dimensions, Image, Pressable, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+//Task manager checklist overlay
+import { useTasks } from '@/context/TasksContext';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+
 
 import { Text, View } from '@/components/Themed';
 
 const { width, height } = Dimensions.get('window');
-const handleContinue = (tabName: string) => {
-  router.push({ pathname: tabName }); // unsure how to make vscode ignore warning
+
+const handleContinue = (tabName: Href) => {
+  router.push(tabName); // unsure how to make vscode ignore warning
 }
 
-const DisplayStats = () => { 
+const DisplayStats = () => {
   const [currentLevel, setLevel] = useState(3);
   const [currentGold, setGold] = useState(81);
-  
+
   // test code to show that it can update in real-time
   /* 
   const upLevel = () => setLevel(prevLevel => prevLevel + 1);
@@ -32,16 +37,18 @@ const DisplayStats = () => {
   // put either TouchableOpacity somewhere in the View
   */
 
+
+
   return (
     <View style={styles.header}>
 
-        <View style={styles.valueContainer}>
-          <Text style={styles.valueText}>Level: {currentLevel}</Text>
-        </View>
+      <View style={styles.valueContainer}>
+        <Text style={styles.valueText}>Level: {currentLevel}</Text>
+      </View>
 
-        <View style={styles.valueContainer}>
-          <Text style={styles.valueText}>Gold: {currentGold}</Text>
-        </View>
+      <View style={styles.valueContainer}>
+        <Text style={styles.valueText}>Gold: {currentGold}</Text>
+      </View>
 
     </View>
   );
@@ -49,7 +56,16 @@ const DisplayStats = () => {
 
 
 export default function HomePage() {
-  return ( 
+  const { tasks, toggleTask, removeTask } = useTasks();
+
+  //filter for task manager
+  const [filterMode, setFilterMode] = useState<'all' | 'incomplete'>('all');
+  const visibleTasks = tasks.filter((t) =>
+    filterMode == 'incomplete' ? !t.completed : true
+  );
+
+  return (
+
     // the icon.pngs are the size of the phone, so the icons have to be loaded like this to be visible
     <View style={styles.container}>
       <Image
@@ -74,23 +90,84 @@ export default function HomePage() {
       />
       <Image
         source={require('../../assets/images/carp_default.png')}
-        style={{width: width, height: height }}
+        style={{ width: width, height: height }}
         resizeMode="contain"
       />
 
       <DisplayStats />
+      <View style={styles.taskPanel}>
+        <View style={styles.taskHeader}>
+          <Text style={styles.taskHeaderText}>
+            Number of tasks left: {tasks.filter((t) => !t.completed).length}
+          </Text>
+          <View style={styles.taskHeaderIcons}>
+            <TouchableOpacity style={styles.filterButton} onPress={() => { }}>
+              <Ionicons name="options-outline" size={22} color="#1E3A5F" />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.addButton} onPress={() => handleContinue('/task-editor')}>
+              <Ionicons name="add" size={20} color="#FFF" />
+            </TouchableOpacity>
+          </View>
+        </View>
 
+        <ScrollView
+          style={styles.taskList}
+          contentContainerStyle={{ gap: 10 }}
+          showsVerticalScrollIndicator={false}
+        >
+          {tasks.map((task) => (
+            <Pressable
+              key={task.id}
+              style={styles.taskCard}
+              onLongPress={() => router.push('/tasks-manager')}
+              onPress={() =>
+                router.push({ pathname: '/task-editor', params: { id: task.id } })
+              }
+            >
+              <View style={styles.taskLeft}>
+                <MaterialCommunityIcons name="drag-vertical" size={22} color="#555" />
+                <Text style={styles.taskTitle}>{task.title}</Text>
+              </View>
+
+              <View style={styles.taskRight}>
+                <View style={styles.goldBadge}>
+                  <Text style={styles.goldBadgeText}>+5</Text>
+                </View>
+                <TouchableOpacity
+                  style={[styles.checkCircle, task.completed && styles.checkCircleDone]}
+                  onPress={() => toggleTask(task.id)}
+                >
+                  {task.completed && <Ionicons name="checkmark" size={20} color="#4CAF50" />}
+                </TouchableOpacity>
+              </View>
+            </Pressable>
+          ))}
+        </ScrollView>
+      </View>
       <View style={styles.buttonBar}>
-        <TouchableOpacity style={styles.button} activeOpacity={0.4} 
-          onPress={() => handleContinue('/(tabs)/dressup')}/>
-        <TouchableOpacity style={styles.button} activeOpacity={0.4} 
-          onPress={() => handleContinue('/(tabs)/reward')}/>
-        <TouchableOpacity style={styles.button} activeOpacity={0.4} 
-          onPress={() => handleContinue('/(tabs)/background')}/>
-        <TouchableOpacity style={styles.button} activeOpacity={0.4} 
-          onPress={() => handleContinue('/(tabs)/Shop')}/>
+        <TouchableOpacity
+          style={styles.button}
+          activeOpacity={0.4}
+          onPress={() => handleContinue('/(tabs)/dressup')}
+        />
+        <TouchableOpacity
+          style={styles.button}
+          activeOpacity={0.4}
+          onPress={() => handleContinue('/(tabs)/reward')}
+        />
+        <TouchableOpacity
+          style={styles.button}
+          activeOpacity={0.4}
+          onPress={() => handleContinue('/(tabs)/background')}
+        />
+        <TouchableOpacity
+          style={styles.button}
+          activeOpacity={0.4}
+          onPress={() => handleContinue('/(tabs)/Shop')}
+        />
       </View>
     </View>
+
   );
 }
 
@@ -116,9 +193,9 @@ const styles = StyleSheet.create({
   },
   header: {
     position: 'absolute',
-    top: 0,    
-    flexDirection: 'row', 
-    alignItems: 'flex-end', 
+    top: 0,
+    flexDirection: 'row',
+    alignItems: 'flex-end',
     width: width,
     height: height / 10,
     justifyContent: 'space-between',
@@ -126,21 +203,23 @@ const styles = StyleSheet.create({
     padding: 10,
     borderBottomRightRadius: 25,
     borderBottomLeftRadius: 25,
-    },
+  },
+  //I change the buttons pngs to align with the red border you made :)
   icon: {
     width: width,
-    height: height,
+    height: height * 1.09,
     position: "absolute",
-    top: height / 25,
+    top: height / 17,
+    left: -6,
   },
   button: {
     width: 50,
     height: 50,
-    margin: 5, 
+    margin: 5,
     // temporary border for visibility
-    borderWidth: 3, 
-    borderRadius: 25, 
-    borderColor: "red", 
+    borderWidth: 3,
+    borderRadius: 25,
+    borderColor: "red",
   },
   buttonBar: {
     flexDirection: 'column',
@@ -151,5 +230,103 @@ const styles = StyleSheet.create({
     top: 104,
     backgroundColor: 'transparent',
 
-  }
+  },
+
+  //Task Manager UI: 
+  taskPanel: {
+    position: 'absolute',
+    bottom: 0,
+    width: width,
+    height: height * 0.34,
+    backgroundColor: '#5BC0EB',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    paddingHorizontal: 14,
+    paddingTop: 10,
+    paddingBottom: 16,
+  },
+  taskHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+    paddingHorizontal: 4,
+    backgroundColor: 'transparent',
+  },
+  taskHeaderText: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: '#0D253F',
+  },
+  taskHeaderIcons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    backgroundColor: 'transparent',
+  },
+  filterButton: {
+    padding: 2,
+  },
+  addButton: {
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+    backgroundColor: '#F4A261',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  taskList: {
+    flex: 1,
+  },
+  taskCard: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#F5F3EB',
+    borderRadius: 14,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+  },
+  taskLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    backgroundColor: 'transparent',
+  },
+  taskTitle: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#111',
+  },
+  taskRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    backgroundColor: 'transparent',
+  },
+  goldBadge: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: '#F4A261',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  goldBadgeText: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#222',
+  },
+  checkCircle: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    backgroundColor: '#E2E4E1',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  checkCircleDone: {
+    backgroundColor: '#D6F5D6',
+  },
+
 });

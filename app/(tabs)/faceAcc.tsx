@@ -15,11 +15,11 @@ export default function accessories() {
                     style={styles.icon}
                     resizeMode="contain"
                 />
-                <TouchableOpacity style={styles.button} activeOpacity={0.4} 
-                    onPress={() => router.push({ pathname: '/(tabs)/Shop' })}/>
+                <TouchableOpacity style={styles.button} activeOpacity={0.4}
+                    onPress={() => router.push({ pathname: '/(tabs)/Shop' })} />
 
                 <View style={styles.valueContainer}>
-                    <Text style={[styles.valueText, {fontSize: 20}]}>Gold: 0</Text>
+                    <Text style={[styles.valueText, { fontSize: 20 }]}>Gold: 0</Text>
                 </View>
 
             </View>
@@ -47,15 +47,15 @@ export default function accessories() {
     );
 }
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
     container: {
         backgroundColor: '#275DAD',
         flex: 1,
     },
 
     header: {
-        flexDirection: 'row', 
-        alignItems: 'flex-end', 
+        flexDirection: 'row',
+        alignItems: 'flex-end',
         width: width,
         height: height / 10,
         justifyContent: 'space-between',
@@ -64,20 +64,22 @@ const styles = StyleSheet.create ({
         borderBottomRightRadius: 25,
         borderBottomLeftRadius: 25,
     },
+    //changes made: adjusted the png to the red border
     icon: {
         width: width,
         height: height,
         position: 'absolute',
-        top: 10,
+        top: 5,
+        left: -2,
     },
     button: {
         width: 50,
         height: 50,
         marginLeft: 10,
         // temporary border for visibility
-        borderWidth: 3, 
-        borderRadius: 25, 
-        borderColor: "red", 
+        borderWidth: 3,
+        borderRadius: 25,
+        borderColor: "red",
     },
     valueContainer: {
         justifyContent: 'center',
@@ -94,16 +96,16 @@ const styles = StyleSheet.create ({
 
     titleText: {
         padding: 10,
-        flex: 1,
+        //Addressing the justifyContent issue: I deleted flex: 1, in this line because it was conflicting with the wdith/height
         fontSize: 30,
         fontWeight: 'bold',
         textAlign: 'center',
     },
 
     shopTab: {
-        flexDirection: 'column', 
-        alignItems: 'center', 
-        justifyContent: 'space-between', 
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-between',
         // for some reson changing justifyContent isnt doing anything
         // so i have to modify the heights of shopTab & items in weird specific ways  
         // to configure the spacing between the text & box
@@ -115,8 +117,8 @@ const styles = StyleSheet.create ({
         borderTopLeftRadius: 25,
     },
     items: {
-        flexDirection: 'row', 
-        alignItems: 'flex-start', 
+        flexDirection: 'row',
+        alignItems: 'flex-start',
         justifyContent: 'space-between',
         flexWrap: 'wrap',
         width: 9 * width / 10,
@@ -128,8 +130,8 @@ const styles = StyleSheet.create ({
         borderRadius: 10,
     },
     itemSpace: {
-        flexDirection: 'column', 
-        alignItems: 'center', 
+        flexDirection: 'column',
+        alignItems: 'center',
         justifyContent: 'flex-end',
         width: 100,
         height: 140,
@@ -139,11 +141,11 @@ const styles = StyleSheet.create ({
         borderRadius: 10,
     },
     itemImage: {
-        flex: 1, 
-        width: 200, 
-        height: 200, 
-        position: 'absolute', 
-        top: -50, 
+        flex: 1,
+        width: 200,
+        height: 200,
+        position: 'absolute',
+        top: -50,
         left: -52,
     },
     itemButton: {

@@ -2,6 +2,8 @@ import { router } from 'expo-router';
 import type { ReactNode } from 'react';
 import {
   ActivityIndicator,
+  Dimensions,
+  Image,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -9,9 +11,9 @@ import {
   Text,
   View,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useTasks } from '@/context/TasksContext';
+const { width, height } = Dimensions.get('window');
 
 export const taskColors = {
   blue: '#55BEE3',
@@ -42,7 +44,17 @@ export default function TaskScreen({
   }
 
   return (
-    <SafeAreaView style={styles.screen}>
+    <View style={styles.screen}>
+      <Image source={require("../assets/images/back_icon.png")}
+        style={{
+          position: 'absolute',
+          width,
+          height: height * 1.09,
+          top: 5,
+          left: -2,
+        }}
+        resizeMode="contain"
+      />
       <KeyboardAvoidingView
         style={styles.keyboard}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -55,7 +67,7 @@ export default function TaskScreen({
               accessibilityLabel="Go back"
               style={styles.backButton}
             >
-              <Text style={styles.backText}>←</Text>
+
             </Pressable>
           )}
 
@@ -100,7 +112,7 @@ export default function TaskScreen({
           )}
         </View>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </View>
   );
 }
 
