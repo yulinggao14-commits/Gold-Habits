@@ -40,6 +40,18 @@ function TaskForm({ task }: { task?: Task }) {
   const [dueTime, setDueTime] = useState(task?.dueTime ?? '');
   const [error, setError] = useState('');
 
+  function chooseDueDate(daysAhead: number) {
+  const date = new Date();
+  date.setDate(date.getDate() + daysAhead);
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  setDueDate(`${year}-${month}-${day}`);
+  setError('');
+}
+
   function confirmTask() {
     try {
       saveTask(
@@ -54,7 +66,7 @@ function TaskForm({ task }: { task?: Task }) {
       if (router.canGoBack()) {
         router.back();
       } else {
-        router.replace('/tasks-manager');
+        router.replace('/task-manager');
       }
     } catch (problem) {
       setError(
@@ -89,7 +101,10 @@ function TaskForm({ task }: { task?: Task }) {
 
       <TextInput
         value={title}
-        onChangeText={setTitle}
+        onChangeText={(text) => {
+        setTitle(text);
+        setError('');
+        }}
         placeholder="Name of the task"
         placeholderTextColor="#677980"
         accessibilityLabel="Task name"
@@ -104,7 +119,10 @@ function TaskForm({ task }: { task?: Task }) {
 
           <TextInput
             value={dueDate}
-            onChangeText={setDueDate}
+            onChangeText={(text) => {
+            setDueDate(text);
+            setError('');
+            }}
             placeholder="YYYY-MM-DD"
             placeholderTextColor="#677980"
             accessibilityLabel="Due date, YYYY-MM-DD"
@@ -120,7 +138,10 @@ function TaskForm({ task }: { task?: Task }) {
 
           <TextInput
             value={dueTime}
-            onChangeText={setDueTime}
+            onChangeText={(text) => {
+            setDueTime(text);
+            setError('');
+            }}
             placeholder="HH:mm"
             placeholderTextColor="#677980"
             accessibilityLabel="Due time, 24-hour HH:mm"
@@ -131,10 +152,53 @@ function TaskForm({ task }: { task?: Task }) {
           />
         </View>
       </View>
-
+      
       <Text style={styles.hint}>
-        Date and time are optional. Example: 2026-11-20 at 14:30.
+      Date and time are optional. Example: 2026-11-20 at 14:30.
       </Text>
+
+      <View style={styles.quickDateRow}>
+  <Pressable
+    onPress={() => chooseDueDate(0)}
+    style={styles.quickDateButton}
+    accessibilityRole="button"
+  >
+    <Text style={styles.quickDateText}>Today</Text>
+  </Pressable>
+
+  <Pressable
+    onPress={() => chooseDueDate(1)}
+    style={styles.quickDateButton}
+    accessibilityRole="button"
+  >
+    <Text style={styles.quickDateText}>Tomorrow</Text>
+  </Pressable>
+
+  <Pressable
+    onPress={() => chooseDueDate(7)}
+    style={styles.quickDateButton}
+    accessibilityRole="button"
+  >
+    <Text style={styles.quickDateText}>In 7 Days</Text>
+  </Pressable>
+</View>
+
+      {(dueDate !== '' || dueTime !== '') && (
+      <Pressable
+      onPress={() => {
+      setDueDate('');
+      setDueTime('');
+      setError('');
+    }}
+      accessibilityRole="button"
+      accessibilityLabel="Clear due date and time"
+      style={styles.clearButton}
+      >
+      <Text style={styles.clearButtonText}>
+      Clear date and time
+      </Text>
+      </Pressable>
+)}
 
       {error !== '' && (
         <Text accessibilityRole="alert" style={styles.error}>
@@ -217,7 +281,19 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     marginTop: 12,
   },
+  clearButton: {
+  alignSelf: 'flex-start',
+  marginTop: 12,
+  paddingVertical: 8,
+  paddingRight: 12,
+},
+clearButtonText: {
+  color: taskColors.text,
+  fontSize: 14,
+  textDecorationLine: 'underline',
+},
   error: {
+    
     color: '#651A12',
     backgroundColor: '#FFF0EA',
     padding: 12,
@@ -244,9 +320,26 @@ const styles = StyleSheet.create({
   pressedButton: {
     opacity: 0.75,
   },
-  missing: {
+    missing: {
     color: taskColors.text,
     fontSize: 16,
     lineHeight: 24,
+  },
+  quickDateRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    marginTop: 12,
+  },
+  quickDateButton: {
+    backgroundColor: taskColors.white,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderRadius: 8,
+  },
+  quickDateText: {
+    color: taskColors.text,
+    fontSize: 14,
+    fontWeight: '600',
   },
 });
