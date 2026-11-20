@@ -70,6 +70,28 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen 
+        name="dressup"
+        options={{
+          headerShown: false,
+          tabBarStyle: { display: 'none' },
+        }}
+      />
+      <Tabs.Screen 
+        name="reward"
+        options={{
+          headerShown: false,
+          tabBarStyle: { display: 'none' },
+        }}
+      />
+      <Tabs.Screen 
+        name="background"
+        options={{
+          headerShown: false,
+          tabBarStyle: { display: 'none' },
+        }}
+      />
+
+      <Tabs.Screen 
         name="Shop"
         options={{
           title: 'Shop',

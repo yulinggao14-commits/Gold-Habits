@@ -1,101 +1,19 @@
-import { ITEMS, type Category, type WardrobeItem } from '@/constants/Wardrobe';
-import { Ionicons } from '@expo/vector-icons';
+import EditScreenInfo from '@/components/EditScreenInfo';
+import { Text, View } from '@/components/Themed';
 import { router } from 'expo-router';
-import { useState } from 'react';
-import {
-  Dimensions,
-  Image,
-  ImageSourcePropType,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
-const { width } = Dimensions.get('window');
-
-
-const SCALE = width / 1080;
-const BAND_TOP = 760;
-const BAND_HEIGHT = 720;
-
-const CARP = require('../../assets/images/carp_default.png');
-
-
-const LAYERS: Category[] = ['shirts', 'face', 'neck', 'hats'];
-
-
-const TABS: { key: Category; icon: ImageSourcePropType }[] = [
-  { key: 'favorites', icon: require('../../assets/images/tab_favorites.png') },
-  { key: 'face', icon: require('../../assets/images/tab_face.png') },
-  { key: 'hats', icon: require('../../assets/images/tab_hats.png') },
-  { key: 'shirts', icon: require('../../assets/images/tab_shirts.png') },
-  { key: 'neck', icon: require('../../assets/images/tab_neck.png') },
-];
-
-export default function DressUp() {
-  const insets = useSafeAreaInsets();
-  const [tab, setTab] = useState<Category>('hats');
- 
-  const [worn, setWorn] = useState<Partial<Record<Category, string>>>({});
-
-  const tabItems = ITEMS.filter((item) => item.category === tab);
-  const wornItems = LAYERS.flatMap((category) => ITEMS.filter((item) => item.id === worn[category]));
- 
-  const emptyBoxes = Math.max(6, Math.ceil(tabItems.length / 3) * 3) - tabItems.length;
-
-  
-  const toggle = (item: WardrobeItem) =>
-    setWorn((prev) => ({ ...prev, [item.category]: prev[item.category] === item.id ? undefined : item.id }));
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
   return (
-    <View style={styles.screen}>
-     
-      <View style={[styles.header, { paddingTop: insets.top + 8 }]}>
-        <Pressable onPress={() => router.push('/(tabs)/homepage')} hitSlop={10}>
-          <Ionicons name="arrow-back" size={34} color="black" />
-        </Pressable>
-        <View style={styles.nameRow}>
-          <Text style={styles.name}>Name</Text>
-          <Ionicons name="pencil" size={26} color="black" />
-        </View>
-      </View>
+    <View style={styles.container}>
+      <Text style={styles.title}>dress up</Text>
+      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <EditScreenInfo path="app/(tabs)/dressup.tsx" />
 
-
-      <View style={styles.stage}>
-        <View style={styles.band}>
-          <Image source={CARP} style={styles.layer} />
-          {wornItems.map((item) => (
-            <Image key={item.id} source={item.image} style={styles.layer} />
-          ))}
-        </View>
-      </View>
-
-    
-      <View style={styles.tabBar}>
-        {TABS.map((t) => (
-          <Pressable key={t.key} onPress={() => setTab(t.key)} style={[styles.tab, tab === t.key && styles.tabActive]}>
-            <Image source={t.icon} style={styles.tabIcon} />
-          </Pressable>
-        ))}
-      </View>
-
+      <TouchableOpacity style={{ width: 100, height: 40, backgroundColor: '#2f95dc'}}
+        onPress={() => router.push({ pathname: '/(tabs)/homepage' })}>
+        <Text style={styles.title}>go back</Text>
+      </TouchableOpacity>
       
-      <ScrollView style={styles.panel} contentContainerStyle={[styles.grid, { paddingBottom: insets.bottom + 16 }]}>
-        {tabItems.map((item) => (
-          <Pressable
-            key={item.id}
-            onPress={() => toggle(item)}
-            style={[styles.box, worn[item.category] === item.id && styles.boxWorn]}>
-            <Image source={item.thumb} style={styles.thumb} resizeMode="contain" />
-          </Pressable>
-        ))}
-        {Array.from({ length: emptyBoxes }, (_, i) => (
-          <View key={`empty-${i}`} style={styles.box} />
-        ))}
-      </ScrollView>
     </View>
   );
 }

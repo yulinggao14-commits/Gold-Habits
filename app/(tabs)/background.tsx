@@ -1,7 +1,7 @@
-import { StyleSheet } from 'react-native';
-
 import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
+import { router } from 'expo-router';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
 export default function TabTwoScreen() {
   return (
@@ -9,6 +9,12 @@ export default function TabTwoScreen() {
       <Text style={styles.title}>background</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <EditScreenInfo path="app/(tabs)/background.tsx" />
+
+      <TouchableOpacity style={{ width: 100, height: 40, backgroundColor: '#2f95dc'}}
+        onPress={() => router.push({ pathname: '/(tabs)/homepage' })}>
+        <Text style={styles.title}>go back</Text>
+      </TouchableOpacity>
+
     </View>
   );
 }
