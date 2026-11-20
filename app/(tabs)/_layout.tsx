@@ -78,6 +78,14 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="dressup"
+        options={{
+          title: 'Dress Up',
+          headerShown: false,
+          tabBarStyle: { display: 'none' },
+        }}
+      />
+      <Tabs.Screen
         name="hats"
         options={{
           title: 'Hats',
