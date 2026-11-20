@@ -13,12 +13,12 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         // Disable the static render of the header on web
         // to prevent a hydration error in React Navigation v6.
         headerShown: useClientOnlyValue(false, true),
       }}>
-      
+
       <Tabs.Screen // rearrangeed Tabs.Screens past this so that screens are in order of 
         name="mainmenuName" // how you would access them
         options={{ // main menu name --> check-in --> homepage --> other buttons
@@ -36,7 +36,7 @@ export default function TabLayout() {
               size={28}
             />
           ),
-        }} 
+        }}
       />
       <Tabs.Screen
         name="mainmenuCheckIn"
@@ -45,7 +45,7 @@ export default function TabLayout() {
           tabBarStyle: { display: 'none' },
           // href: null, (unsure what this does but it makes the name screen unable to forward to it)
         }} />
-        <Tabs.Screen
+      <Tabs.Screen
         name="homepage"
         options={{
           title: 'Home Page',
@@ -62,28 +62,28 @@ export default function TabLayout() {
           ),
           headerShown: false,
           tabBarStyle: { display: 'none' },
-        }} 
+        }}
       />
-      
+
       <Tabs.Screen
         name="task-manager"
       />
 
-      <Tabs.Screen 
+      <Tabs.Screen
         name="dressup"
         options={{
           headerShown: false,
           tabBarStyle: { display: 'none' },
         }}
       />
-      <Tabs.Screen 
+      <Tabs.Screen
         name="reward"
         options={{
           headerShown: false,
           tabBarStyle: { display: 'none' },
         }}
       />
-      <Tabs.Screen 
+      <Tabs.Screen
         name="background"
         options={{
           headerShown: false,
@@ -91,7 +91,7 @@ export default function TabLayout() {
         }}
       />
 
-      <Tabs.Screen 
+      <Tabs.Screen
         name="Shop"
         options={{
           title: 'Shop',
@@ -99,14 +99,7 @@ export default function TabLayout() {
           tabBarStyle: { display: 'none' },
         }}
       />
-      <Tabs.Screen
-        name="dressup"
-        options={{
-          title: 'Dress Up',
-          headerShown: false,
-          tabBarStyle: { display: 'none' },
-        }}
-      />
+
       <Tabs.Screen
         name="hats"
         options={{
@@ -162,7 +155,7 @@ export default function TabLayout() {
                   <SymbolView
                     name={{ ios: 'info.circle', android: 'info', web: 'info' }}
                     size={25}
-                    tintColor={Colors[colorScheme].text}
+                    tintColor={Colors[colorScheme ?? 'light'].text}
                     style={{ opacity: pressed ? 0.5 : 1 }}
                   />
                 )}

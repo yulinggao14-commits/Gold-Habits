@@ -17,19 +17,19 @@ export const ITEMS: WardrobeItem[] = [
     id: 'sun_hat',
     category: 'hats',
     image: require('../assets/images/Beach_hat.png'),
-    thumb: require('../assets/images/thumb_Beach_hat.png.png'),
+    thumb: require('../assets/images/Beach_hat.png'),
   },
   {
     id: 'Every_day_hat',
     category: 'hats',
     image: require('../assets/images/Every_day_hat.png'),
-    thumb: require('../assets/images/thumb_Every_day_hat.png'),
+    thumb: require('../assets/images/Every_day_hat.png'),
   },
   {
     id: 'cap',
     category: 'hats',
-    image: require('../assets/images/assets_cap.png'),
-    thumb: require('../assets/images/thumb_cap.png'),
+    image: require('../assets/images/cap.png'),
+    thumb: require('../assets/images/cap.png'),
   },
   {
     id: 'brim_hat',
@@ -42,35 +42,35 @@ export const ITEMS: WardrobeItem[] = [
     id: 'bow',
     category: 'hats',
     image: require('../assets/images/assets_accessory_bow.png'),
-    thumb: require('../assets/images/thumb_accessory_bow.png'),
+    thumb: require('../assets/images/assets_accessory_bow.png'),
   },
   {
     id: 'clown',
     category: 'hats',
     image: require('../assets/images/assets_accessory_clown.png'),
-    thumb: require('../assets/images/thumb_accessory_clown.png'),
+    thumb: require('../assets/images/assets_accessory_clown.png'),
   },
 
- 
+
 
   {
     id: 'orange_shirt',
     category: 'shirts',
-    image: require('../assets/images/Orange_shirt.png'),
-    thumb: require('../assets/images/thumb_Orange_shirt.png'),
+    image: require('../assets/images/Orange_Shirt.png'),
+    thumb: require('../assets/images/Orange_Shirt.png'),
   },
-    {
+  {
     id: 'Dress_shirt',
     category: 'shirts',
-    image: require('../assets/images/Dress_Shirt.png'),
-    thumb: require('../assets/images/thumb_Dress_Shirt.png'),
+    image: require('../assets/images/Dress_shirt.png'),
+    thumb: require('../assets/images/Dress_shirt.png'),
   },
 
-{
+  {
     id: 'Star_Dress',
     category: 'shirts',
-    image: require('../assets/images/Star_Dress.png'),
-    thumb: require('../assets/images/thumb_Star_Dress.png'),
+    image: require('../assets/images/Star_Dess.png'),
+    thumb: require('../assets/images/Star_Dess.png'),
   }
 
 ];
