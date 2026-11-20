@@ -34,6 +34,10 @@ export default function shirts() {
 
                     <View style={styles.itemSpace}></View>
                     <View style={styles.itemSpace}></View>
+                    <View style={styles.itemSpace}></View>
+
+                    <View style={styles.itemSpace}></View>
+                    <View style={styles.itemSpace}></View>
 
                 </View>
             </View>
@@ -70,8 +74,7 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         marginLeft: 10,
-        // temporary border for visibility
-        borderWidth: 3,
+        // borderWidth: 3,
         borderRadius: 25,
         borderColor: "red",
     },
@@ -100,9 +103,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-between',
-        // for some reson changing justifyContent isnt doing anything
-        // so i have to modify the heights of shopTab & items in weird specific ways  
-        // to configure the spacing between the text & box
         width: width,
         height: 21 * height / 22,
         backgroundColor: '#5BC0EB',
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     items: {
         flexDirection: 'row',
         alignItems: 'flex-start',
-        justifyContent: 'space-between',
+        justifyContent: 'space-evenly',
         flexWrap: 'wrap',
         width: 9 * width / 10,
         height: 17 * height / 20,

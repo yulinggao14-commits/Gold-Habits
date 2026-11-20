@@ -33,12 +33,6 @@ export default function accessories() {
                 <View style={styles.items}>
 
                     <View style={styles.itemSpace}></View>
-                    <View style={styles.itemSpace}></View>
-                    <View style={styles.itemSpace}></View>
-
-                    <View style={styles.itemSpace}></View>
-                    <View style={styles.itemSpace}></View>
-                    <View style={styles.itemSpace}></View>
 
                 </View>
             </View>
@@ -76,8 +70,7 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         marginLeft: 10,
-        // temporary border for visibility
-        borderWidth: 3,
+        // borderWidth: 3,
         borderRadius: 25,
         borderColor: "red",
     },
@@ -119,7 +112,7 @@ const styles = StyleSheet.create({
     items: {
         flexDirection: 'row',
         alignItems: 'flex-start',
-        justifyContent: 'space-between',
+        justifyContent: 'space-evenly',
         flexWrap: 'wrap',
         width: 9 * width / 10,
         height: 17 * height / 20,

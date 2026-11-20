@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import { useState } from 'react';
-import { Button, Image, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
 
 
 export default function MainMenuScreen() {
@@ -62,20 +62,6 @@ export default function MainMenuScreen() {
             >
                 <Text style={styles.buttonText}>Confirm</Text>
             </TouchableOpacity>
-          <View> 
-            <View>
-              <Button
-                title="Task Manager"
-                onPress={() => router.push('/task-manager') }
-              />
-            </View>
-          </View>
-          <View>
-            <Button 
-              title="Shop"
-              onPress = { () => router.push('/Shop') }
-            />
-          </View>
         </KeyboardAvoidingView>
 
     );

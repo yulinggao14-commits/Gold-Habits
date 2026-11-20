@@ -11,7 +11,7 @@ import { Text, View } from '@/components/Themed';
 const { width, height } = Dimensions.get('window');
 
 const handleContinue = (tabName: Href) => {
-  router.push(tabName); // unsure how to make vscode ignore warning
+  router.push(tabName);
 }
 
 const DisplayStats = () => {
@@ -217,10 +217,19 @@ const styles = StyleSheet.create({
     height: 50,
     margin: 5,
     // temporary border for visibility
-    borderWidth: 3,
+    // borderWidth: 3,
     borderRadius: 25,
     borderColor: "red",
   },
+  /*
+  small note: 
+  the buttons aren't aligned with the icons for me (jaden le).
+  it didn't look like a problem in yuling's video preview though (i didnt edit any values in this commit),
+  so it likely has to do with absolute positioning vs different phone emulators' screen sizes
+  (i'm using a 1080 x 2400 (px) resolution android 17 on expo go).
+  shouldn't be an issue for the showcase assuming yuling uses the same device,
+  but if the buttons are weird on your own device, that's why.
+  */
   buttonBar: {
     flexDirection: 'column',
     width: 60,
